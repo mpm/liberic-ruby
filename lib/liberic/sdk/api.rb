@@ -18,13 +18,14 @@ module Liberic
       #     EricTransferHandle* transferHandle,
       #     EricRueckgabepufferHandle rueckgabeXmlPuffer,
       #     EricRueckgabepufferHandle serverantwortXmlPuffer);
-      #attach_eric_function :bearbeite_vorgang, [:string, :string, :uint,
-      #druck
-      #verschluesselungs
-      #handle
-      #:pointer,
-      #:pointer], :int
+      attach_eric_function :bearbeite_vorgang, [:string, :string,
+          Types::BearbeitungFlag,
+          :pointer,
+          :pointer,
+          :pointer,
 
+          :pointer,
+          :pointer], :int
 
       # ERICAPI_DECL int STDCALL EricChangePassword(const char* psePath, const char* oldPin,
       #     const char* newPin);

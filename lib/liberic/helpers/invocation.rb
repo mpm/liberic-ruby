@@ -8,9 +8,13 @@ module Liberic
         raise StandardError.new(SDK::Fehlercodes::CODES[value])
       end
 
-      def with_result_buffer(&block)
+      def with_result_buffer(raise_on_error = true, &block)
         handle = SDK::API.rueckgabepuffer_erzeugen
-        raise_on_error(yield(handle))
+        if raise_on_error
+          raise_on_error(yield(handle))
+        else
+          yield(handle)
+        end
         result = Liberic::SDK::API.rueckgabepuffer_inhalt(handle)
         SDK::API.rueckgabepuffer_freigeben(handle)
         result
