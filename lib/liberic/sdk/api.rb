@@ -2,7 +2,7 @@ module Liberic
   module SDK
     module API
       extend FFI::Library
-      ffi_lib ENV['ERIC_HOME'] + '/lib/libericapi.so'
+      ffi_lib Liberic.library_path
 
       def self.attach_eric_function(name, params, return_type, original_name = nil)
         original_name ||= 'Eric' + name.to_s.capitalize.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{$1}#{$2.capitalize}" }
