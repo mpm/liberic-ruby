@@ -3,7 +3,7 @@
 Liberic is a ruby wrapper for ERiC, a C library to interact with German
 Tax Authority's ELSTER service.
 
-This gem is at a very early stage and not able to do much useful stuff.
+**WARNING:** This gem is at a very early stage and not able to do much useful stuff.
 
 ## Installation
 
@@ -22,19 +22,17 @@ Or install it yourself (not possible yet) as:
     $ gem install liberic
 
 The ERiC library files are not distributed with this gem. They must be
-obtained from the [ELSTER Downloads Page](https://www.elster.de/ssl/secure/eric.php).
+obtained from the [ELSTER Downloads Page](https://www.elster.de/ssl/secure/eric.php). (Requires your personal credentials which have to be requested from ELSTER).
 
 Follow the installation instructions from the ERiC documentation.
-After extracting the downloaded files, there should be a folder
-containing
+After extracting the downloaded library files to a location of your choice, there should be a folder
+containing at least three subfolders:
 
 ```
 bin/
 include/
 lib/
 ```
-
-subfolders.
 
 Currently, the environment variable `ERIC_HOME` needs to be set to this
 folder or the gem will not find the library files.
@@ -45,34 +43,38 @@ For example:
 $ export ERIC_HOME=/opt/ERiC-22.3.4.0/Linux-x86_64
 ```
 
+Check your settings by running:
+
+```sh
+$ ls $ERIC_HOME/lib/libericapi.*
+```
+This should list you one file with an operating system dependend suffix.
+
 ## Usage
 
-The gem exposes an interface to the ERiC C native functions inside the
+The gem exposes an interface to ERiC's native functions inside the
 `Liberic::SDK::API` namespace.
 
-Function namens have been converted from camel case and stripped of the
-'Eric' prefix.
+Function names have been converted from camel case and stripped of the
+'Eric' prefix, otherwise the original (German) names have been kept.
 
 For example:
 
 ```c
 EricSystemCheck();
 ```
-
-becomes
+is in Ruby:
 
 ```ruby
 Liberic::SDK::API.system_check
 ```
 
-in Ruby.
-
 A more Ruby friendly encapsulation of the ERiC functionality is in the
-making (check out Liberic::Process).
+making (check out `Liberic::Process`).
 
 ## Examples
 
-The following code will load an example tax filing (from the SDK) to
+The following script will load an example tax filing (from the SDK) to
 validate it with ERiC.
 
 ```ruby
