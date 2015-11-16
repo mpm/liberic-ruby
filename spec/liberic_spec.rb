@@ -5,7 +5,7 @@ describe Liberic do
     expect(Liberic::VERSION).not_to be nil
   end
 
-  it 'does something useful' do
-    expect(false).to eq(true)
+  it 'has an eric library version' do
+    expect(Liberic::REQUIRED_LIBERICAPI_VERSION).not_to be nil
   end
 end
