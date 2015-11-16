@@ -30,8 +30,8 @@ module Liberic
     )
 
     eric_version = version_response.for_library('libericapi')
-    if eric_version != REQUIRED_LIBERICAPI_VERSION
-      raise InitializationError.new("ERiC #{REQUIRED_LIBERICAPI_VERSION} required, but #{eric_version} found.")
+    if eric_version != SDK::Configuration::LIBERICAPI_VERSION
+      raise InitializationError.new("ERiC #{SDK::Configuration::LIBERICAPI_VERSION} required, but #{eric_version} found.")
     end
   end
 end

@@ -1,3 +1,4 @@
+require 'liberic/sdk/configuration'
 require 'liberic/sdk/fehlercodes'
 require 'liberic/sdk/types'
 require 'liberic/sdk/api'
