@@ -25,6 +25,7 @@ The ERiC library files are not distributed with this gem. They must be
 obtained from the [ELSTER Downloads Page](https://www.elster.de/ssl/secure/eric.php). (Requires your personal credentials which have to be requested from ELSTER).
 
 Follow the installation instructions from the ERiC documentation.
+
 After extracting the downloaded library files to a location of your choice, there should be a folder
 containing at least three subfolders:
 
@@ -41,6 +42,36 @@ For example:
 
 ```sh
 $ export ERIC_HOME=/opt/ERiC-22.3.4.0/Linux-x86_64
+```
+
+### Additional steps on OS X
+On *Mac OS X* you need to process the libraries to fix the interal paths
+(credits to @deviantbits):
+
+```
+libs=`ls $ERIC_HOME/lib/*.dylib`
+plugins=`ls $ERIC_HOME/lib/plugins2/*.dylib`
+
+for target in $libs
+do
+  for lib in $libs
+  do
+    install_name_tool -change "@rpath/"`basename $lib` "$ERIC_HOME/lib/"`basename $lib` $target
+  done
+
+  for plugin in $plugins
+  do
+    install_name_tool -change "@rpath/plugins2/"`basename $plugin` "$ERIC_HOME/lib/plugins2/"`basename $plugin` $target
+  done
+done
+
+for target in $plugins
+do
+  for lib in $libs
+  do
+    install_name_tool -change "@rpath/"`basename $lib` "$ERIC_HOME/lib/"`basename $lib` $target
+  done
+done
 ```
 
 Check your settings by running:
