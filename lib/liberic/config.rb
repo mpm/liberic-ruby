@@ -4,6 +4,31 @@ module Liberic
 
     end
 
+    {
+      'basis.home_dir'            => :eric_home,
+      'basis.log_dir'             => :log_path,
+      'basis.data_dir'            => :data_path,
+      'basis.test_id_erlaubt'     => :allow_test_id,
+      'log.detailed'              => :keep_logs,
+      'transfer.connect_timeout'  => :connect_timeout,
+      'transfer.response_timeout' => :response_timeout,
+      'validieren.fehler_max'     => :validation_error_limit,
+      'transfer.netz.doi'         => :online,
+      'http.proxy_host'           => :proxy_host,
+      'http.proxy_port'           => :proxy_port,
+      'http.proxy_username'       => :proxy_username,
+      'http.proxy_password'       => :proxy_password,
+      'http.proxy_auth'           => :proxy_auth
+    }.each do |setting_in_eric, setting_in_ruby|
+      define_method setting_in_ruby do
+        send(:[], setting_in_eric)
+      end
+
+      define_method "#{setting_in_ruby}=" do |value|
+        send(:[]=, setting_in_eric, value)
+      end
+    end
+
     def [](key)
       convert_to_ruby(
         Helpers::Invocation.with_result_buffer do |handle|
