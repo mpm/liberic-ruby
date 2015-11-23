@@ -4,6 +4,21 @@ module Liberic
 
     end
 
+    def get(key)
+      with_result_buffer do |handle|
+        SDK::API.einstellung_lesen(key, handle)
+      end
+    end
+
+    def set(key, value)
+      raise_on_error(
+        SDK::API.einstellung_setzen(
+          key,
+          convert_to_eric(value)
+        )
+      )
+    end
+
     private
 
     def convert_to_ruby(value)
