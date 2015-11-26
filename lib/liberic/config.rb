@@ -1,7 +1,13 @@
 module Liberic
   class Config
-    def initialize
+    attr_reader :logger
 
+    def initialize
+      install_logger
+    end
+
+    def logger=(logger)
+      @logger = logger
     end
 
     {
@@ -47,6 +53,18 @@ module Liberic
     end
 
     private
+
+    def install_logger
+      Helpers::Invocation.raise_on_error(
+        SDK::API.registriere_log_callback(
+          SDK::API.generate_log_callback do |category, level, message|
+            if @logger.respond_to?(:add)
+              @logger.add(SDK::Types::LOGGER_SEVERITY[level], message, category)
+            end
+          end,
+        0, nil)
+      )
+    end
 
     def convert_to_ruby(value)
       if value.to_i.to_s == value
