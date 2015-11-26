@@ -176,6 +176,12 @@ module Liberic
       #     void* benutzerdaten);
       attach_eric_function :registriere_log_callback, [:log_callback, :uint, :pointer], :int
 
+      def self.generate_log_callback(&block)
+        FFI::Function.new(:void, [:string, :int, :string, :pointer]) do |category, level, message|
+          block.call(category, level, message)
+        end
+      end
+
       # ERICAPI_DECL EricRueckgabepufferHandle STDCALL EricRueckgabepufferErzeugen();
       attach_eric_function :rueckgabepuffer_erzeugen, [], :pointer
 
