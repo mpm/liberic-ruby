@@ -1,11 +1,14 @@
 module Liberic
   module Helpers
     module Invocation
+      class Error < StandardError
+      end
+
       extend self
 
       def raise_on_error(value)
         return value if value == SDK::Fehlercodes::OK
-        raise StandardError.new(SDK::Fehlercodes::CODES[value])
+        raise Error.new(SDK::Fehlercodes::CODES[value])
       end
 
       def with_result_buffer(raise_on_error = true, &block)
