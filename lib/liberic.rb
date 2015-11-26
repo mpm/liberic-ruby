@@ -1,5 +1,6 @@
 require 'ffi'
 require 'nokogiri'
+require 'logger'
 require 'liberic/version'
 require 'liberic/boot'
 require 'liberic/helpers'
