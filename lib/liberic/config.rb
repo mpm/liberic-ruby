@@ -1,4 +1,37 @@
 module Liberic
+
+  # Provides an interface to ERiC's configuration parameters and logging.
+  #
+  # == Scope
+  #
+  # This class is not meant to be instantiated directly. An instance is created
+  # the first time it is accessed in the Liberic namespace.
+  #
+  #   Liberic.config # will return an instance of Config
+  #
+  # == Configuration parameters
+  #
+  # Configuration parameters can be accessed with the hash notation.
+  # Keys are passed to ERiC directly, so they must be in German (see ERiC
+  # documentation for this).
+  #
+  # Example:
+  #
+  #   Liberic.config['validieren.fehler_max'] # 30
+  #
+  # +Config+ provides an english abstraction to these parameters with +attr_accessor+
+  # like getter/setter methods:
+  #
+  #   Liberic.config.validation_error_limit = 30
+  #
+  # The most common settings are (german names in paranthesis)
+  #
+  # * +data_path+ (basis.data_dir) directory to store PDFs and certificates in
+  # * +allow_test_id+ (basis.test_id_erlaubt) allow fake tax ids when processing tax filings
+  # * +detailed_logs+ (log.detailed) set log level to debug. Also disables rolling logs (if +detailed_logs+ is +false+, ERiC will create a maximum of ten log files on disk, each with 1 MB of size. The oldest file will be deleted when rolling over). *WARNING*: Logging to disk is disabled after instantiating +Config+. See +:logger:+ for details.
+  # * +validation_error_limit+ (validieren.fehler_max) limits the amount of errors that are returned when processing or checking tax filings. This means even though 50 fields inside the tax report are missing, only the first 30 are reported as part of the response.
+  # * +online+ (transfer.netz.doi) allow connecting to the actual tax authority's production systems.
+  #
   class Config
     attr_reader :logger
 
@@ -6,6 +39,30 @@ module Liberic
       install_logger
     end
 
+    # Assign an instance of Logger that will be called whenever ERiC creates
+    # log output.
+    # Please note that ERiC's mechanism to write log files to disk is disabled
+    # as soon as a +Config+ class is instantiated!
+    #
+    # ==== Attributes
+    #
+    # * +logger+ - A Ruby Logger instance or nil
+    #
+    # ==== Examples
+    #
+    # An instance of +Config+ is provided in the +Liberic+ namespace. A logger
+    # can be assigned like this:
+    #
+    #    Liberic.config.logger = Logger.new(STDOUT)
+    #    Liberic.config.logger.level = Logger::WARN
+    #
+    # ERiC does not send debug log messages by default. To do this, change ERiC's
+    # configuration:
+    #
+    #    Liberic.config.detailed_logs = true
+    #
+    # and make sure +:level:+ of your +Logger+ is not filtering debug messages.
+    #
     def logger=(logger)
       @logger = logger
     end
@@ -15,7 +72,7 @@ module Liberic
       'basis.log_dir'             => :log_path,
       'basis.data_dir'            => :data_path,
       'basis.test_id_erlaubt'     => :allow_test_id,
-      'log.detailed'              => :keep_logs,
+      'log.detailed'              => :detailed_logs,
       'transfer.connect_timeout'  => :connect_timeout,
       'transfer.response_timeout' => :response_timeout,
       'validieren.fehler_max'     => :validation_error_limit,
