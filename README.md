@@ -5,6 +5,11 @@ Tax Authority's ELSTER service.
 
 **WARNING:** This gem is at a very early stage and not able to do much useful stuff.
 
+## Documentation
+
+This README can only give a brief overview. You can look up the complete
+[documentation on RubyDoc.info](http://www.rubydoc.info/github/mpm/liberic-ruby).
+
 ## Installation
 
 Add this line to your application's Gemfile:
