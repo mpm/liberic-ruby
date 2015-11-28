@@ -1,5 +1,8 @@
 module Liberic
   class Process
+    class ExecutionError < StandardError
+    end
+
     def initialize(xml, type)
       @xml = xml
       @type = type
@@ -13,7 +16,12 @@ module Liberic
 
     # Executes the actual call to +EricBearbeiteVorgang()+
     #
-    # The optional +action+ parameter can be set to +print+ to generate a PDF from this case.
+    # Taken an optional hash with an +:action+ parameter, which can be one of the following:
+    #
+    #   * +:validate+ validate the tax filing and return errors (local processing only)
+    #   * +:print+ validate the tax filing and create summary PDF
+    #   * +:print_and_submit+ validate the tax filing, create summary PDF and submit filing to ELSTER (server).
+    #
     # Set +Liberic.config.data_path+ to the location where the PDF should be stored.
     #
     # Example:
@@ -24,16 +32,31 @@ module Liberic
     # Will generate a PDF in the current directory if not specified otherwise.
     # *WARNING* method signature and parameters are WIP and subject to change
     def execute(action: :validate)
-      #druck_params = SDK::Types::DruckParameter.new
-      Helpers::Invocation.with_result_buffer(false) do |handle|
+      eric_action = ACTIONS[action] || (raise ExecutionError.new("Invalid action: #{action}. Valid actions are #{ACTIONS.keys.join(', ')}"))
+      server_buffer = SDK::API.rueckgabepuffer_erzeugen
+      result = Helpers::Invocation.with_result_buffer(false) do |local_buffer|
         SDK::API.bearbeite_vorgang(@xml, @type,
-          action == :print ? :drucke : :validiere,
+          eric_action,
           nil, #druck_params,
           nil,
           nil,
-          handle,
-          nil)
+          local_buffer,
+          server_buffer)
       end
+      server_result = Liberic::SDK::API.rueckgabepuffer_inhalt(server_buffer)
+      SDK::API.rueckgabepuffer_freigeben(server_buffer)
+      {
+        result: result,
+        server_result: server_result
+      }
     end
+
+    private
+
+    ACTIONS = {
+      validate: :validiere,
+      print: :drucke,
+      print_and_submit: :sende
+    }
   end
 end
