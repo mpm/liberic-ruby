@@ -22,7 +22,18 @@ module Liberic
     #   * +:print+ validate the tax filing and create summary PDF
     #   * +:print_and_submit+ validate the tax filing, create summary PDF and submit filing to ELSTER (server).
     #
-    # Set +Liberic.config.data_path+ to the location where the PDF should be stored.
+    # Options for controlling the PDF output (printing)
+    #
+    #   * +:filename+     (set a filename including path where to store the PDF file)
+    #   * +:draft+        (set to +false+ to remove the the text "*** ENTWURF ***" on every page)
+    #   * +:footer+       (set a string that will be printed on ever page footer)
+    #   * +:cover_page+   (set to +true+ to include a cover page)
+    #   * +:duplex+       (set to +true+ to generate pages for duplex printing (alternating margin left and right)
+    #
+    # TODO: Please note that some parameter combinations might result in errors and will return empty strings for the XML
+    # (these errors are currently not checked). One example is using +draft: false+ with test data
+    #
+    # Set +Liberic.config.data_path+ to the location where the PDF should be stored, if +:filename+ is not provided.
     #
     # Example:
     #
@@ -31,20 +42,24 @@ module Liberic
     #
     # Will generate a PDF in the current directory if not specified otherwise.
     # *WARNING* method signature and parameters are WIP and subject to change
-    def execute(action: :validate)
+    def execute(options = {})
+      action = options[:action] ||= :validate
       eric_action = ACTIONS[action] || (raise ExecutionError.new("Invalid action: #{action}. Valid actions are #{ACTIONS.keys.join(', ')}"))
+      print_params = create_print_params(options)
       server_buffer = SDK::API.rueckgabepuffer_erzeugen
       result = Helpers::Invocation.with_result_buffer(false) do |local_buffer|
         SDK::API.bearbeite_vorgang(@xml, @type,
           eric_action,
-          nil, #druck_params,
+          nil,
+          #print_params,
           nil,
           nil,
           local_buffer,
           server_buffer)
       end
-      server_result = Liberic::SDK::API.rueckgabepuffer_inhalt(server_buffer)
+      server_result = SDK::API.rueckgabepuffer_inhalt(server_buffer)
       SDK::API.rueckgabepuffer_freigeben(server_buffer)
+      #print_params.pointer.free
       {
         result: result,
         server_result: server_result
@@ -58,5 +73,20 @@ module Liberic
       print: :drucke,
       print_and_submit: :sende
     }
+
+    def create_print_params(options)
+      params = SDK::Types::DruckParameter.new
+      params[:version]     = 2
+      params[:ersteSeite]  = options[:cover_page] ? 1 : 0
+      params[:duplexDruck] = options[:duplex] ? 1 : 0
+      params[:vorschau]    = options.has_key?(:draft) ? (options[:draft] ? 1 : 0) : 1
+      {pdfName: :filename,
+       fussText: :footer}.each do |eric_param, ruby_param|
+        if options[ruby_param]
+          options[eric_param] = FFI::MemoryPointer.from_string(options[ruby_param]).address
+        end
+      end
+      params
+    end
   end
 end

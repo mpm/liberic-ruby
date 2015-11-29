@@ -3,18 +3,14 @@ module Liberic
     module Types
       extend FFI::Library
 
-      class DruckParameter < FFI::ManagedStruct
+      class DruckParameter < FFI::Struct
         layout :version,     :uint,
                :vorschau,    :uint,
                :ersteSeite,  :uint,
                :duplexDruck, :uint,
-               :pdfName,     :string,
-               :fussText,    :string,
+               :pdfName,     :pointer,
+               :fussText,    :pointer,
                :ersteSeite,  :uint
-
-        def self.release(ptr)
-          Types.free_object(ptr)
-        end
       end
 
       BearbeitungFlag = enum(
