@@ -50,16 +50,15 @@ module Liberic
       result = Helpers::Invocation.with_result_buffer(false) do |local_buffer|
         SDK::API.bearbeite_vorgang(@xml, @type,
           eric_action,
-          nil,
-          #print_params,
-          nil,
-          nil,
+          print_params,
+          nil, # cryptoParameter
+          nil, # transferHandle
           local_buffer,
           server_buffer)
       end
       server_result = SDK::API.rueckgabepuffer_inhalt(server_buffer)
       SDK::API.rueckgabepuffer_freigeben(server_buffer)
-      #print_params.pointer.free
+      print_params.pointer.free
       {
         result: result,
         server_result: server_result
@@ -83,7 +82,7 @@ module Liberic
       {pdfName: :filename,
        fussText: :footer}.each do |eric_param, ruby_param|
         if options[ruby_param]
-          options[eric_param] = FFI::MemoryPointer.from_string(options[ruby_param]).address
+          params[eric_param] = FFI::MemoryPointer.from_string(options[ruby_param]).address
         end
       end
       params
