@@ -4,13 +4,32 @@ module Liberic
       extend FFI::Library
 
       class DruckParameter < FFI::Struct
-        layout :version,     :uint,
+        layout :version,     :uint, # Set version to 2
                :vorschau,    :uint,
                :ersteSeite,  :uint,
                :duplexDruck, :uint,
                :pdfName,     :pointer,
                :fussText,    :pointer,
                :ersteSeite,  :uint
+      end
+
+      class VerschluesselungsParameter < FFI::Struct
+        layout :version,     :uint, # Set version to 2
+               :zertifikatHandle, :pointer,
+               :pin,         :pointer,
+               :abrufCode,   :pointer
+      end
+
+      class ZertifikatParameter < FFI::Struct
+        layout :version,     :uint, # Set version to 1
+               :name,        :pointer,
+               :land,        :pointer, # "DE" (optional)
+               :ort,         :pointer, # Prefixed with zip code, i.e. "D-10179 Berlin"
+               :address,     :pointer, # Street and number
+               :email,       :pointer, # (optional)
+               :organization,:pointer,
+               :unit,        :pointer,
+               :description, :pointer
       end
 
       BearbeitungFlag = enum(
