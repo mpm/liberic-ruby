@@ -1,4 +1,14 @@
 module Liberic
+  # +Process+ encapsulates the main functionality of ERiC. (+eric_bearbeite_vorgang+).
+  #
+  # +Process+ must be initialized with an XML string containing the tax filing (or other data to be submitted) as well
+  # as the type of case.
+  #
+  # +Process+ exposes the +check+ method to let ERiC check the validity of the supplied XML schema. An Exception is thrown if
+  # validation fails.
+  #
+  # Calling +check+ is optional. See +execute+ to start the actual execution of the tax case. +execute+ will +check+ as well (not in this library,
+  # but ERiC will do this
   class Process
     class ExecutionError < StandardError
     end
