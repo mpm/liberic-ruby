@@ -15,7 +15,7 @@ This README can only give a brief overview. You can look up the complete
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'liberic', git: 'https://github.com/mpm/liberic-ruby.git'
+gem 'liberic', github: 'mpm/liberic-ruby.git'
 ```
 
 And then execute:
