@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<Elster  xmlns="http://www.elster.de/2002/XMLSchema">
+	<TransferHeader version="8">
+		<Verfahren>ElsterErklaerung</Verfahren>
+		<DatenArt>ESt</DatenArt>
+		<Vorgang>send-NoSig</Vorgang>
+		<Testmerker>700000004</Testmerker>
+		<HerstellerID>74931</HerstellerID>
+		<DatenLieferant>Softwaretester ERiC</DatenLieferant>
+		<Datei><Verschluesselung>CMSEncryptedData</Verschluesselung><Kompression>GZIP</Kompression><DatenGroesse>12345</DatenGroesse><TransportSchluessel></TransportSchluessel></Datei>
+	</TransferHeader>
+	<DatenTeil>
+		<Nutzdatenblock>
+			<NutzdatenHeader version="10">
+				<NutzdatenTicket>adfjasldkfuweor456asvs</NutzdatenTicket>
+				<Empfaenger id="F">9198</Empfaenger>
+				<Hersteller>
+					<ProduktName>ERICTest</ProduktName>
+					<ProduktVersion>2009.1/0</ProduktVersion>
+				</Hersteller>
+				<DatenLieferant>Softwaretester ERiC</DatenLieferant>
+			</NutzdatenHeader>
+			<Nutzdaten>
+				<Jahressteuererklaerung version="2">
+					<Vorsatz unterfallart="10" ordNrArt="S" vorgang="01">
+						<StNr>9198011310010</StNr>
+						<Zeitraum>2011</Zeitraum>
+						<Erstelldatum>20090910</Erstelldatum>
+						<Erstellzeit>123705</Erstellzeit>
+						<AbsName>Testfallversand ERiC</AbsName>
+						<AbsStr>Testgasse 1a</AbsStr>
+						<AbsPlz>12345</AbsPlz>
+						<AbsOrt>Musterstadt</AbsOrt>
+						<Copyright>(c) 2009  Bayerisches Landesamt für Steuern</Copyright>
+						<Rueckuebermittlung bescheid="nein"></Rueckuebermittlung>
+					</Vorsatz>
+					<Feld index="01" lfdNr="00001" nr="0100001" wert="X"/>
+					<Feld index="01" lfdNr="00001" nr="0100201" wert="Maier"/>
+					<Feld index="01" lfdNr="00001" nr="0100301" wert="Hans"/>
+					<Feld index="01" lfdNr="00001" nr="0100401" wert="05.05.1955"/>
+					<Feld index="01" lfdNr="00001" nr="0100402" wert="03"/>
+					<Feld index="01" lfdNr="00001" nr="0100501" wert="Musterstr. 55"/>
+					<Feld index="01" lfdNr="00001" nr="0100601" wert="55555"/>
+					<Feld index="01" lfdNr="00001" nr="0100602" wert="Musterort"/>
+					<Feld index="01" lfdNr="00001" nr="0103301" wert="X"/>
+					<Feld index="01" lfdNr="00001" nr="0103504" wert="X"/>
+					<Feld index="01" lfdNr="00001" nr="0103204" wert="X"/>
+					<Feld index="01" lfdNr="00001" nr="0104001" wert="X"/>
+					<Feld index="01" lfdNr="00001" nr="0104002" wert="1"/>
+					<Feld index="01" lfdNr="00001" nr="0104003" wert="X"/>
+					<Feld index="01" lfdNr="00001" nr="0101401" wert="1234567890"/>
+					<Feld index="01" lfdNr="00001" nr="0101402" wert="12345678"/>
+					<Feld index="01" lfdNr="00001" nr="0101501" wert="Musterbank"/>
+					<Feld index="01" lfdNr="00001" nr="0101601" wert="X"/>
+<!-- Start Anlage N -->
+					<Feld index="01" lfdNr="00001" nr="0200002" wert="1"/>
+          <Feld index="01" lfdNr="00001" nr="0200201" wert="30000"/>
+					<Feld index="01" lfdNr="00001" nr="0200301" wert="2010,10"/>
+					<Feld index="01" lfdNr="00001" nr="0200401" wert="800,80"/>
+					<Feld index="01" lfdNr="00001" nr="0200501" wert="50,10"/>
+<!-- Ende Anlage N -->
+<!-- Start Anlage Kap -->
+					<Feld index="01" lfdNr="00001" nr="1900401" wert="1"/>
+					<Feld index="01" lfdNr="00001" nr="1901401" wert="345"/>
+					<Feld index="01" lfdNr="00001" nr="1900701" wert="145"/>
+					<Feld index="01" lfdNr="00001" nr="1901501" wert="105"/>
+<!-- Ende Anlage Kap -->
+<!-- Start Anlage Kind -->
+					<Feld index="01" lfdNr="00001" nr="0500107" wert="Susi"/>
+					<Feld index="01" lfdNr="00001" nr="0500701" wert="01.06.2011"/>
+					<Feld index="01" lfdNr="00001" nr="0500702" wert="300"/>
+					<Feld index="01" lfdNr="00001" nr="0500703" wert="01.06.2011-31.12.2011"/>
+					<Feld index="01" lfdNr="00001" nr="0500102" wert="Musterweg 4711"/>
+					<Feld index="01" lfdNr="00001" nr="0500807" wert="1"/>
+<!-- Ende Anlage Kind -->
+<!-- Start Anlage R -->
+					<Feld index="01" lfdNr="00001" nr="1800101" wert="1"/>
+					<Feld index="01" lfdNr="00001" nr="1800301" wert="2570"/>
+					<Feld index="01" lfdNr="00001" nr="1800501" wert="01.01.2006"/>
+<!-- Ende Anlage R -->
+<!-- Start Anlage Vor -->
+					<Feld index="01" lfdNr="00001" nr="2000401" wert="1001"/>
+					<Feld index="01" lfdNr="00001" nr="2000801" wert="0"/>
+<!-- Ende Anlage Vor -->
+				</Jahressteuererklaerung>
+			</Nutzdaten>
+		</Nutzdatenblock>
+	</DatenTeil>
+</Elster>
