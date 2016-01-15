@@ -46,7 +46,7 @@ folder or the gem will not find the library files.
 For example:
 
 ```sh
-$ export ERIC_HOME=/opt/ERiC-22.3.4.0/Linux-x86_64
+$ export ERIC_HOME=/opt/ERiC-23.2.12.0/Linux-x86_64
 ```
 
 ### Additional steps on OS X
