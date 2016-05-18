@@ -44,6 +44,7 @@ module Liberic
       # TODO
       # ERICAPI_DECL int STDCALL EricCreateKey(const char* pin, const char* pfad,
       #    const eric_zertifikat_parameter_t* zertifikatInfo);
+      attach_eric_function :create_key, [:string, :string, :pointer], :int
 
       # ERICAPI_DECL int STDCALL EricCreateTH(const char* xml, const char* verfahren,
       #     const char* datenart, const char* vorgang,
@@ -83,7 +84,7 @@ module Liberic
 
       # ERICAPI_DECL int STDCALL EricGetAuswahlListen (const char* datenartVersion, const char* feldkennung,
       #     EricRueckgabepufferHandle rueckgabeXmlPuffer);
-      attach_eric_function :get_handle_to_certificate, [:uint, :uint, :string], :int
+      attach_eric_function :get_auswahl_listen, [:string, :string, :pointer], :int
 
       # ERICAPI_DECL int STDCALL EricGetErrormessagesFromXMLAnswer(
       #     const char* xml,
@@ -96,11 +97,11 @@ module Liberic
       # ERICAPI_DECL int STDCALL EricGetHandleToCertificate(EricZertifikatHandle* hToken,
       #     uint32_t* iInfoPinSupport,
       #     const char* pathToKeystore);
-      attach_eric_function :get_handle_to_certificate, [:uint, :uint, :string], :int
+      attach_eric_function :get_handle_to_certificate, [:pointer, :pointer, :string], :int
 
       # ERICAPI_DECL int STDCALL EricGetPinStatus(EricZertifikatHandle hToken, uint32_t* pinStatus,
       #     uint32_t keyType);
-      attach_eric_function :get_pin_status, [:uint, :uint], :int
+      attach_eric_function :get_pin_status, [:uint, :pointer, :uint], :int
 
       # TODO
       # ERICAPI_DECL int STDCALL EricGetPublicKey(const eric_verschluesselungs_parameter_t* cryptoParameter,
@@ -129,7 +130,7 @@ module Liberic
       #     const eric_verschluesselungs_parameter_t* cryptoParameter,
       #     EricRueckgabepufferHandle fingerabdruckPuffer,
       #     EricRueckgabepufferHandle signaturPuffer);
-      attach_eric_function :hole_zertifikat_fingerabdruck, [:string, :pointer, :pointer], :int
+      attach_eric_function :hole_zertifikat_fingerabdruck, [:pointer, :pointer, :pointer], :int
 
       # ERICAPI_DECL int STDCALL EricKonvertiereZertifikat(const char* pin, const char* pse);
       attach_eric_function :konvertiere_zertifikat, [:string, :string], :int

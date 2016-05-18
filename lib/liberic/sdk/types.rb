@@ -15,7 +15,7 @@ module Liberic
 
       class VerschluesselungsParameter < FFI::Struct
         layout :version,     :uint, # Set version to 2
-               :zertifikatHandle, :pointer,
+               :zertifikatHandle, :uint,
                :pin,         :pointer,
                :abrufCode,   :pointer
       end
