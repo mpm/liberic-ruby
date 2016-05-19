@@ -40,6 +40,10 @@ module Liberic
     #   * +:cover_page+   (set to +true+ to include a cover page)
     #   * +:duplex+       (set to +true+ to generate pages for duplex printing (alternating margin left and right)
     #
+    # Other options
+    #   * +:encryption+  An instance of +SDK::Types::VerschluesselungsParameter+ (Leave this empty when requesting BescheidRueckuebermittlung with CEZ (locally generated certificate))
+    #                    No use case tested yet.
+    #
     # TODO: Please note that some parameter combinations might result in errors and will return empty strings for the XML
     # (these errors are currently not checked). One example is using +draft: false+ with test data
     #
@@ -61,7 +65,7 @@ module Liberic
         SDK::API.bearbeite_vorgang(@xml, @type,
           eric_action,
           print_params,
-          nil, # cryptoParameter
+          options[:encryption],
           nil, # transferHandle
           local_buffer,
           server_buffer)
