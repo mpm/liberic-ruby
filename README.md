@@ -15,7 +15,7 @@ This README can only give a brief overview. You can look up the complete
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'liberic', github: 'mpm/liberic-ruby.git'
+gem 'liberic'
 ```
 
 And then execute:
@@ -145,6 +145,29 @@ result = submission.execute
 # Try editing the example file to see this in action- for example change the year of birth to a future year, etc.
 puts result
 ```
+
+## Features
+
+This gem is rather early stage. It does not implement all ERiC features
+yet. It does support submitting various tax filings via
+`Liberic::Process` which should be sufficient for the majority of use
+cases. Dealing with certificates (necessary for retrieving the tax
+assessment or cryptographically signing a tax filing) is possible, but
+no Ruby style wrapper exists yet.
+
+Please refer to `Liberic::SDK::API` and the official docs for this.
+
+## Bugs
+
+This library is used in production for submitting tax filings. Not all
+of the methods implemented in `Liberic::SDK::API` have been tested
+though, so the data types defined there might be wrong.
+
+Please consider this if you encounter problems and are looking for bugs
+in your code.
+
+Pull requests, improvements and examples are welcome, we are all in this
+together :)
 
 ## Development
 
