@@ -105,7 +105,7 @@ module Liberic
 
       # ERICAPI_DECL int STDCALL EricGetPublicKey(const eric_verschluesselungs_parameter_t* cryptoParameter,
       #     EricRueckgabepufferHandle rueckgabePuffer);
-      attach_eric_function :get_public_key, [:string, :pointer], :int
+      attach_eric_function :get_public_key, [:pointer, :pointer], :int
 
       # ERICAPI_DECL int STDCALL EricHoleFehlerText(int fehlerkode,
       #     EricRueckgabepufferHandle rueckgabePuffer);
