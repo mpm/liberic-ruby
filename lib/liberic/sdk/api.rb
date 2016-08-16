@@ -103,10 +103,9 @@ module Liberic
       #     uint32_t keyType);
       attach_eric_function :get_pin_status, [:uint, :pointer, :uint], :int
 
-      # TODO
       # ERICAPI_DECL int STDCALL EricGetPublicKey(const eric_verschluesselungs_parameter_t* cryptoParameter,
       #     EricRueckgabepufferHandle rueckgabePuffer);
-      # attach_eric_function :get_public_key, [:string, :pointer], :int
+      attach_eric_function :get_public_key, [:string, :pointer], :int
 
       # ERICAPI_DECL int STDCALL EricHoleFehlerText(int fehlerkode,
       #     EricRueckgabepufferHandle rueckgabePuffer);
