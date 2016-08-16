@@ -64,9 +64,9 @@ module Liberic
       result = Helpers::Invocation.with_result_buffer(false) do |local_buffer|
         SDK::API.bearbeite_vorgang(@xml, @type,
           eric_action,
-          print_params,
+          (action == :submit ? nil : print_params),
           options[:encryption],
-          nil, # transferHandle
+          (action == :submit ? FFI::MemoryPointer.new(:uint32, 1) : nil), # transferHandle
           local_buffer,
           server_buffer)
       end
@@ -84,7 +84,8 @@ module Liberic
     ACTIONS = {
       validate: :validiere,
       print: :drucke,
-      print_and_submit: :sende
+      print_and_submit: :sende,
+      submit: :sende
     }
 
     def create_print_params(options)
