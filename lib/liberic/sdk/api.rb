@@ -131,9 +131,6 @@ module Liberic
       #     EricRueckgabepufferHandle signaturPuffer);
       attach_eric_function :hole_zertifikat_fingerabdruck, [:pointer, :pointer, :pointer], :int
 
-      # ERICAPI_DECL int STDCALL EricKonvertiereZertifikat(const char* pin, const char* pse);
-      attach_eric_function :konvertiere_zertifikat, [:string, :string], :int
-
       # ERICAPI_DECL int STDCALL EricMakeElsterStnr(const char* steuernrBescheid,
       #     const char landesnr[2+1],
       #     const char bundesfinanzamtsnr[4+1],
