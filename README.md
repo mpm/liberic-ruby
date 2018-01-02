@@ -40,13 +40,13 @@ include/
 lib/
 ```
 
-Currently, the environment variable `ERIC_HOME` needs to be set to this
+Currently, the environment variable `ERIC_HOME_27` needs to be set to this
 folder or the gem will not find the library files.
 
 For example:
 
 ```sh
-$ export ERIC_HOME=/opt/ERiC-23.3.8.0/Linux-x86_64
+$ export ERIC_HOME_27=/opt/ERiC-27.3.2.0/Linux-x86_64
 ```
 
 ### Additional steps on OS X
@@ -54,19 +54,19 @@ On *Mac OS X* you need to process the libraries to fix the interal paths
 (credits to @deviantbits):
 
 ```
-libs=`ls $ERIC_HOME/lib/*.dylib`
-plugins=`ls $ERIC_HOME/lib/plugins2/*.dylib`
+libs=`ls $ERIC_HOME_27/lib/*.dylib`
+plugins=`ls $ERIC_HOME_27/lib/plugins2/*.dylib`
 
 for target in $libs
 do
   for lib in $libs
   do
-    install_name_tool -change "@rpath/"`basename $lib` "$ERIC_HOME/lib/"`basename $lib` $target
+    install_name_tool -change "@rpath/"`basename $lib` "$ERIC_HOME_27/lib/"`basename $lib` $target
   done
 
   for plugin in $plugins
   do
-    install_name_tool -change "@rpath/plugins2/"`basename $plugin` "$ERIC_HOME/lib/plugins2/"`basename $plugin` $target
+    install_name_tool -change "@rpath/plugins2/"`basename $plugin` "$ERIC_HOME_27/lib/plugins2/"`basename $plugin` $target
   done
 done
 
@@ -74,7 +74,7 @@ for target in $plugins
 do
   for lib in $libs
   do
-    install_name_tool -change "@rpath/"`basename $lib` "$ERIC_HOME/lib/"`basename $lib` $target
+    install_name_tool -change "@rpath/"`basename $lib` "$ERIC_HOME_27/lib/"`basename $lib` $target
   done
 done
 ```
@@ -82,7 +82,7 @@ done
 Check your settings by running:
 
 ```sh
-$ ls $ERIC_HOME/lib/libericapi.*
+$ ls $ERIC_HOME_27/lib/libericapi.*
 ```
 This should list you one file with an operating system dependend suffix.
 
