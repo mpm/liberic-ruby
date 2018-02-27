@@ -35,7 +35,8 @@ module Liberic
       BearbeitungFlag = enum(
         :validiere, (1 << 1),
         :sende,     (1 << 2),
-        :drucke,    (1 << 5)
+        :drucke,    (1 << 5),
+        :sende_auth,  ('00100110'.to_i(2)) # triggers all three: valiediere, sende and drucke
       )
 
       ERIC_LOG_ERROR = 4

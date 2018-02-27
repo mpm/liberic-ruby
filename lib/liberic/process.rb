@@ -85,7 +85,8 @@ module Liberic
       validate: :validiere,
       print: :drucke,
       print_and_submit: :sende,
-      submit: :sende
+      submit: :sende,
+      print_and_submit_auth: :sende_auth
     }
 
     def create_print_params(options)
