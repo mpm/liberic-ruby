@@ -10,6 +10,8 @@ require 'liberic/process'
 require 'liberic/config'
 
 module Liberic
+  SDK::API::initialisiere(nil, nil)
+
   check_eric_version!
 
   def config

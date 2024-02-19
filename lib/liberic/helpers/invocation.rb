@@ -7,7 +7,7 @@ module Liberic
       extend self
 
       def raise_on_error(value)
-        return value if value == SDK::Fehlercodes::OK
+        return value if value == SDK::Fehlercodes::ERIC_OK
         raise Error.new(SDK::Fehlercodes::CODES[value])
       end
 

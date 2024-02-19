@@ -27,7 +27,7 @@ Or install it yourself (not possible yet) as:
     $ gem install liberic
 
 The ERiC library files are not distributed with this gem. They must be
-obtained from the [ELSTER Downloads Page](https://www.elster.de/ssl/secure/eric.php). (Requires your personal credentials which have to be requested from ELSTER).
+obtained from the [ELSTER Downloads Page](https://www.elster.de/elsterweb/entwickler/infoseite/eric). (Requires your personal credentials which have to be requested from ELSTER).
 
 Follow the installation instructions from the ERiC documentation.
 
@@ -40,16 +40,20 @@ include/
 lib/
 ```
 
-Currently, the environment variable `ERIC_HOME_27` needs to be set to this
+Currently, the environment variable `ERIC_HOME_39` needs to be set to this
 folder or the gem will not find the library files.
 
 For example:
 
 ```sh
-$ export ERIC_HOME_27=/opt/ERiC-27.3.2.0/Linux-x86_64
+$ export ERIC_HOME_39=/opt/ERiC-39.3.2.0/Linux-x86_64
 ```
 
 ### Additional steps on OS X
+
+The following OS X specific information dates back to the first version of this
+library (from 2016). Might be outdated or incorrect by now.
+
 On *Mac OS X* you need to process the libraries to fix the interal paths
 (credits to @deviantbits):
 

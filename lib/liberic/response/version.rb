@@ -9,6 +9,7 @@ module Liberic
       def initialize(response_xml)
         @response_xml = response_xml
         @response_dom = Nokogiri::XML(@response_xml)
+
         @libs = @response_dom.xpath('//version:Bibliothek', version: VERSION_NS).map do |lib|
           fields = Hash[
             {file: 'Name',

@@ -9,7 +9,7 @@ module Liberic
         attach_function(name, original_name, params, return_type)
       end
 
-      # ERICAPI_DECL int STDCALL EricBearbeiteVorgang(
+      # ERICAPI_IMPORT int STDCALL EricBearbeiteVorgang(
       #     const char* datenpuffer,
       #     const char* datenartVersion,
       #     uint32_t bearbeitungsFlags,
@@ -27,66 +27,83 @@ module Liberic
           :pointer,
           :pointer], :int
 
-      # ERICAPI_DECL int STDCALL EricChangePassword(const char* psePath, const char* oldPin,
-      #     const char* newPin);
+
+      # ERICAPI_IMPORT int STDCALL EricBeende(void);
+      attach_eric_function :beende, [], :int
+
+      # ERICAPI_IMPORT int STDCALL EricChangePassword(const byteChar* psePath, const byteChar* oldPin,
+      #     const byteChar* newPin);
       attach_eric_function :change_password, [:string, :string, :string], :int
 
-      # ERICAPI_DECL int STDCALL EricCheckBuFaNummer(const char* steuernummer);
-      attach_eric_function :check_bu_fa_nummer, [:string], :int
+      # ERICAPI_IMPORT int STDCALL EricPruefeBuFaNummer(const byteChar* steuernummer);
+      attach_eric_function :pruefe_bu_fa_nummer, [:string], :int
 
-      # ERICAPI_DECL int STDCALL EricCheckXML(const char* xml, const char* datenartVersion,
+      # ERICAPI_IMPORT int STDCALL EricCheckXML(const char* xml, const char* datenartVersion,
       #     EricRueckgabepufferHandle fehlertextPuffer);
       attach_eric_function :check_xml, [:string, :string, :pointer], :int, :EricCheckXML
 
-      # ERICAPI_DECL int STDCALL EricCloseHandleToCertificate(EricZertifikatHandle hToken);
+      # ERICAPI_IMPORT int STDCALL EricCloseHandleToCertificate(EricZertifikatHandle hToken);
       attach_eric_function :close_handle_to_certificate, [:uint], :int
 
       # TODO
-      # ERICAPI_DECL int STDCALL EricCreateKey(const char* pin, const char* pfad,
-      #    const eric_zertifikat_parameter_t* zertifikatInfo);
+      # ERICAPI_IMPORT int STDCALL EricCreateKey(
+      #     const byteChar* pin,
+      #     const byteChar* pfad,
+      #     const eric_zertifikat_parameter_t* zertifikatInfo);
       attach_eric_function :create_key, [:string, :string, :pointer], :int
 
-      # ERICAPI_DECL int STDCALL EricCreateTH(const char* xml, const char* verfahren,
+      # ERICAPI_IMPORT int STDCALL EricCreateTH(const char* xml, const char* verfahren,
       #     const char* datenart, const char* vorgang,
       #     const char* testmerker, const char* herstellerId,
       #     const char* datenLieferant, const char* versionClient,
-      #     const char* publicKey,
+      #     const byteChar* publicKey,
       #     EricRueckgabepufferHandle xmlRueckgabePuffer);
       attach_eric_function :create_th, [:string, :string, :string, :string,
           :string, :string, :string, :string, :string, :pointer], :int, :EricCreateTH
 
-      # ERICAPI_DECL int STDCALL EricDekodiereDaten(
+      # TODO:
+      # ERICAPI_IMPORT int STDCALL EricCreateUUID(
+      #     EricRueckgabepufferHandle uuidRueckgabePuffer);
+
+      # ERICAPI_IMPORT int STDCALL EricDekodiereDaten(
       #     EricZertifikatHandle zertifikatHandle,
-      #     const char* pin,
-      #     const char* base64Eingabe,
+      #     const byteChar* pin,
+      #     const byteChar* base64Eingabe,
       #     EricRueckgabepufferHandle rueckgabePuffer);
       attach_eric_function :dekodiere_daten, [:uint, :string, :string, :pointer], :int
 
-      # ERICAPI_DECL int STDCALL EricEinstellungAlleZuruecksetzen(void);
       attach_eric_function :einstellung_alle_zuruecksetzen, [:void], :int
 
-      # ERICAPI_DECL int STDCALL EricEinstellungLesen(const char* name,
+      # ERICAPI_IMPORT int STDCALL EricEinstellungLesen(
+      #     const char* name,
       #     EricRueckgabepufferHandle rueckgabePuffer);
       attach_eric_function :einstellung_lesen, [:string, :pointer], :int
 
-      # ERICAPI_DECL int STDCALL EricEinstellungSetzen(const char* name, const char* wert);
+      # ERICAPI_IMPORT int STDCALL EricEinstellungSetzen(
+      #     const char* name,
+      #     const char* wert);
       attach_eric_function :einstellung_setzen, [:string, :string], :int
 
-      # ERICAPI_DECL int STDCALL EricEinstellungZuruecksetzen(const char* name);
+      # ERICAPI_IMPORT int STDCALL EricEinstellungZuruecksetzen(
+      #     const char* name);
       attach_eric_function :einstellung_zuruecksetzen, [:string], :int
 
-      # ERICAPI_DECL int STDCALL EricEntladePlugins();
+      # ERICAPI_IMPORT int STDCALL EricEntladePlugins(
+      #     void);
       attach_eric_function :entlade_plugins, [], :int
 
-      # ERICAPI_DECL int STDCALL EricFormatStNr(const char* eingabeSteuernummer,
+      # ERICAPI_IMPORT int STDCALL EricFormatStNr(
+      #     const byteChar* eingabeSteuernummer,
       #     EricRueckgabepufferHandle rueckgabePuffer);
       attach_eric_function :format_st_nr, [:string, :pointer], :int
 
-      # ERICAPI_DECL int STDCALL EricGetAuswahlListen (const char* datenartVersion, const char* feldkennung,
+      # ERICAPI_IMPORT int STDCALL EricGetAuswahlListen(
+      #     const char* datenartVersion,
+      #     const char* feldkennung,
       #     EricRueckgabepufferHandle rueckgabeXmlPuffer);
       attach_eric_function :get_auswahl_listen, [:string, :string, :pointer], :int
 
-      # ERICAPI_DECL int STDCALL EricGetErrormessagesFromXMLAnswer(
+      # ERICAPI_IMPORT int STDCALL EricGetErrormessagesFromXMLAnswer(
       #     const char* xml,
       #     EricRueckgabepufferHandle transferticketPuffer,
       #     EricRueckgabepufferHandle returncodeTHPuffer,
@@ -94,69 +111,104 @@ module Liberic
       #     EricRueckgabepufferHandle returncodesUndFehlertexteNDHXmlPuffer);
       attach_eric_function :get_errormessages_from_xml_answer, [:string, :pointer, :pointer, :pointer, :pointer], :int, :EricGetErrormessagesFromXMLAnswer
 
-      # ERICAPI_DECL int STDCALL EricGetHandleToCertificate(EricZertifikatHandle* hToken,
+      # ERICAPI_IMPORT int STDCALL EricGetHandleToCertificate(
+      #     EricZertifikatHandle* hToken,
       #     uint32_t* iInfoPinSupport,
-      #     const char* pathToKeystore);
+      #     const byteChar* pathToKeystore);
       attach_eric_function :get_handle_to_certificate, [:pointer, :pointer, :string], :int
 
-      # ERICAPI_DECL int STDCALL EricGetPinStatus(EricZertifikatHandle hToken, uint32_t* pinStatus,
+      # ERICAPI_IMPORT int STDCALL EricGetPinStatus(
+      #     EricZertifikatHandle hToken,
+      #     uint32_t* pinStatus,
       #     uint32_t keyType);
       attach_eric_function :get_pin_status, [:uint, :pointer, :uint], :int
 
-      # ERICAPI_DECL int STDCALL EricGetPublicKey(const eric_verschluesselungs_parameter_t* cryptoParameter,
+      # ERICAPI_IMPORT int STDCALL EricGetPublicKey(
+      #     const eric_verschluesselungs_parameter_t* cryptoParameter,
       #     EricRueckgabepufferHandle rueckgabePuffer);
       attach_eric_function :get_public_key, [:pointer, :pointer], :int
 
-      # ERICAPI_DECL int STDCALL EricHoleFehlerText(int fehlerkode,
+      # ERICAPI_IMPORT int STDCALL EricHoleFehlerText(
+      #     int fehlerkode,
       #     EricRueckgabepufferHandle rueckgabePuffer);
       attach_eric_function :hole_fehler_text, [:int, :pointer], :int
 
-      # ERICAPI_DECL int STDCALL EricHoleFinanzaemter(const char* finanzamtLandNummer,
+      # ERICAPI_IMPORT int STDCALL EricHoleFinanzaemter(
+      #     const byteChar* finanzamtLandNummer,
       #     EricRueckgabepufferHandle rueckgabeXmlPuffer);
       attach_eric_function :hole_finanzaemter, [:string, :pointer], :int
 
-      # ERICAPI_DECL int STDCALL EricHoleFinanzamtLandNummern(EricRueckgabepufferHandle rueckgabeXmlPuffer);
+      # ERICAPI_IMPORT int STDCALL EricHoleFinanzamtLandNummern(
+      #     EricRueckgabepufferHandle rueckgabeXmlPuffer);
       attach_eric_function :hole_finanzamt_land_nummern, [:pointer], :int
 
       # TODO
-      # ERICAPI_DECL int STDCALL EricHoleFinanzamtsdaten(const char bufaNr[5],
-      #     struct  Finanzamtsdaten *finanzamtsdaten);
+      # ERICAPI_IMPORT int STDCALL EricHoleFinanzamtsdaten(
+      #     const byteChar bufaNr[5],
+      #     EricRueckgabepufferHandle rueckgabeXmlPuffer);
 
-      # ERICAPI_DECL int STDCALL EricHoleTestfinanzaemter(EricRueckgabepufferHandle rueckgabeXmlPuffer);
+      # ERICAPI_IMPORT int STDCALL EricHoleTestfinanzaemter(
+      #     EricRueckgabepufferHandle rueckgabeXmlPuffer);
       attach_eric_function :hole_testfinanzaemter, [:pointer], :int
 
-      # ERICAPI_DECL int STDCALL EricHoleZertifikatFingerabdruck(
+      # ERICAPI_IMPORT int STDCALL EricHoleZertifikatEigenschaften(
+      #     EricZertifikatHandle hToken,
+      #     const byteChar * pin,
+      #     EricRueckgabepufferHandle rueckgabeXmlPuffer);
+      attach_eric_function :hole_zertifikat_eigenschaften, [:uint, :string, :pointer], :int
+
+      # ERICAPI_IMPORT int STDCALL EricHoleZertifikatFingerabdruck(
       #     const eric_verschluesselungs_parameter_t* cryptoParameter,
       #     EricRueckgabepufferHandle fingerabdruckPuffer,
       #     EricRueckgabepufferHandle signaturPuffer);
       attach_eric_function :hole_zertifikat_fingerabdruck, [:pointer, :pointer, :pointer], :int
 
-      # ERICAPI_DECL int STDCALL EricMakeElsterStnr(const char* steuernrBescheid,
-      #     const char landesnr[2+1],
-      #     const char bundesfinanzamtsnr[4+1],
+      # ERICAPI_IMPORT int STDCALL EricInitialisiere(
+      #     const byteChar *pluginPfad,
+      #     const byteChar *logPfad);
+      attach_eric_function :initialisiere, [:string, :string], :int
+
+      # ERICAPI_IMPORT int STDCALL EricMakeElsterStnr(
+      #     const byteChar* steuernrBescheid,
+      #     const byteChar landesnr[2+1],
+      #     const byteChar bundesfinanzamtsnr[4+1],
       #     EricRueckgabepufferHandle steuernrPuffer);
       # FIXME: non-pointer string
       attach_eric_function :make_elster_stnr, [:string, :string, :string, :pointer], :int
 
-      # ERICAPI_DECL int STDCALL EricPruefeBIC(const char* bic);
+      # ERICAPI_IMPORT int STDCALL EricPruefeBIC(
+      #     const byteChar* bic);
       attach_eric_function :pruefe_bic, [:string], :int, :EricPruefeBIC
 
-      # ERICAPI_DECL int STDCALL EricPruefeIBAN(const char* iban);
+      # ERICAPI_IMPORT int STDCALL EricPruefeIBAN(
+      #   const byteChar* iban);
       attach_eric_function :pruefe_iban, [:string], :int, :EricPruefeIBAN
 
-      # ERICAPI_DECL int STDCALL EricPruefeIdentifikationsMerkmal(const char* steuerId);
+      # TODO
+      # ERICAPI_IMPORT int STDCALL EricPruefeEWAz(
+      #     const byteChar* einheitswertAz);
+
+      # ERICAPI_IMPORT int STDCALL EricPruefeIdentifikationsMerkmal(
+      #     const byteChar* steuerId);
       attach_eric_function :pruefe_identifikations_merkmal, [:string], :int
 
-      # ERICAPI_DECL int STDCALL EricPruefeSteuernummer(const char* steuernummer);
+      # ERICAPI_IMPORT int STDCALL EricPruefeSteuernummer(
+      #     const byteChar* steuernummer);
       attach_eric_function :pruefe_steuernummer, [:string], :int
 
       # TODO
-      # ERICAPI_DECL int STDCALL EricRegistriereFortschrittCallback(
+      # ERICAPI_IMPORT int STDCALL EricPruefeZertifikatPin(
+      #    const byteChar *pathToKeystore,
+      #    const byteChar *pin,
+      #    uint32_t keyType);
+
+      # TODO
+      # ERICAPI_IMPORT int STDCALL EricRegistriereFortschrittCallback(
       #     EricFortschrittCallback funktion,
       #     void* benutzerdaten);
 
       # TODO
-      # ERICAPI_DECL int STDCALL EricRegistriereGlobalenFortschrittCallback(
+      # ERICAPI_IMPORT int STDCALL EricRegistriereGlobalenFortschrittCallback(
       #     EricFortschrittCallback funktion,
       #     void* benutzerdaten);
 
@@ -167,7 +219,7 @@ module Liberic
       #         void* benutzerdaten);
       callback :log_callback, [:string, :int, :string, :pointer], :void
 
-      # ERICAPI_DECL int STDCALL EricRegistriereLogCallback(
+      # ERICAPI_IMPORT int STDCALL EricRegistriereLogCallback(
       #     EricLogCallback funktion,
       #     uint32_t schreibeEricLogDatei,
       #     void* benutzerdaten);
@@ -179,22 +231,28 @@ module Liberic
         end
       end
 
-      # ERICAPI_DECL EricRueckgabepufferHandle STDCALL EricRueckgabepufferErzeugen();
+      # ERICAPI_IMPORT EricRueckgabepufferHandle STDCALL EricRueckgabepufferErzeugen(
+      #     void);
       attach_eric_function :rueckgabepuffer_erzeugen, [], :pointer
 
-      # ERICAPI_DECL int STDCALL EricRueckgabepufferFreigeben(EricRueckgabepufferHandle handle);
+      # ERICAPI_IMPORT int STDCALL EricRueckgabepufferFreigeben(
+      #     EricRueckgabepufferHandle handle);
       attach_eric_function :rueckgabepuffer_freigeben, [:pointer], :int
 
-      # ERICAPI_DECL const char* STDCALL EricRueckgabepufferInhalt(EricRueckgabepufferHandle handle);
+      # ERICAPI_IMPORT const char* STDCALL EricRueckgabepufferInhalt(
+      #     EricRueckgabepufferHandle handle);
       attach_eric_function :rueckgabepuffer_inhalt, [:pointer], :string
 
-      # ERICAPI_DECL uint32_t STDCALL EricRueckgabepufferLaenge(EricRueckgabepufferHandle handle);
+      # ERICAPI_IMPORT uint32_t STDCALL EricRueckgabepufferLaenge(
+      #     EricRueckgabepufferHandle handle);
       attach_eric_function :rueckgabepuffer_laenge, [:pointer], :uint
 
-      # ERICAPI_DECL int STDCALL EricSystemCheck();
+      # ERICAPI_IMPORT int STDCALL EricSystemCheck(
+      #     void);
       attach_eric_function :system_check, [], :int
 
-      # ERICAPI_DECL int STDCALL EricVersion(EricRueckgabepufferHandle rueckgabeXmlPuffer);
+      # ERICAPI_IMPORT int STDCALL EricVersion(
+      #     EricRueckgabepufferHandle rueckgabeXmlPuffer);
       attach_eric_function :version, [:pointer], :int
     end
   end
