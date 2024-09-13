@@ -59,6 +59,7 @@ module Liberic
     def execute(options = {})
       action = options[:action] ||= :validate
       eric_action = ACTIONS[action] || (raise ExecutionError.new("Invalid action: #{action}. Valid actions are #{ACTIONS.keys.join(', ')}"))
+      is_printing = %w[submit print_and_submit print_and_submit_auth].include?(action.to_s)
       print_params = create_print_params(options)
       server_buffer = SDK::API.rueckgabepuffer_erzeugen
       result = Helpers::Invocation.with_result_buffer(false) do |local_buffer|
@@ -66,7 +67,7 @@ module Liberic
           eric_action,
           (action == :submit ? nil : print_params),
           options[:encryption],
-          (action == :submit ? FFI::MemoryPointer.new(:uint32, 1) : nil), # transferHandle
+          (is_printing ? FFI::MemoryPointer.new(:uint32, 1) : nil), # transferHandle
           local_buffer,
           server_buffer)
       end

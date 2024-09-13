@@ -49,6 +49,12 @@ For example:
 $ export ERIC_HOME_39=/opt/ERiC-39.3.2.0/Linux-x86_64
 ```
 
+The gem will raise an `Liberic::InitializationError` if the environment variable is not set.
+In a Rails project this can interfere with running rake (for example
+when building the app in Docker). In this case, use `gem 'liberic', require: false` in your `Gemfile`.
+And require the gem later in your Rails code (for example a model) by
+calling `require 'liberic'`.
+
 ### Additional steps on OS X
 
 The following OS X specific information dates back to the first version of this

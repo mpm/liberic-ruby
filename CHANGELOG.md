@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0]
+
+Add support to sign a submission with a POZ (Portalzertifikat)
+
+Usage:
+
+```ruby
+# Uses the example Einkommensteuer & Zertifikat that comes with the ERIC SDK
+tax_filing = File.read(File.expand_path('Beispiel/ericdemo-java/ESt_2020.xml', Liberic.eric_home))
+cert_path = File.expand_path('Beispiel/ericdemo-java/test-softidnr-pse.pfx', Liberic.eric_home)
+cert = Liberic::Certificate.new(cert_path, '123456')
+
+submission = Liberic::Process.new(tax_filing, 'ESt_2020')
+result = submission.execute({action: :submit, encryption: cert.encryption_params})
+cert.release_handle!
+```
+
+### Added
+
+- Added `Liberic::Certificate` class
+
 ## [1.1.0]
 
 Eric now requires a call to an initialization function. This happens
