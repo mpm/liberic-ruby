@@ -40,13 +40,13 @@ include/
 lib/
 ```
 
-Currently, the environment variable `ERIC_HOME_39` needs to be set to this
+Currently, the environment variable `ERIC_HOME_40` needs to be set to this
 folder or the gem will not find the library files.
 
 For example:
 
 ```sh
-$ export ERIC_HOME_39=/opt/ERiC-39.3.2.0/Linux-x86_64
+$ export ERIC_HOME_40=/opt/ERiC-40.3.4.0/Linux-x86_64
 ```
 
 The gem will raise an `Liberic::InitializationError` if the environment variable is not set.

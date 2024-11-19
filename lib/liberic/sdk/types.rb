@@ -4,9 +4,8 @@ module Liberic
       extend FFI::Library
 
       class DruckParameter < FFI::Struct
-        layout :version,     :uint, # Set version to 2
+        layout :version,     :uint, # Set version to 4
                :vorschau,    :uint,
-               :ersteSeite,  :uint,
                :duplexDruck, :uint,
                :pdfName,     :pointer,
                :fussText,    :pointer,
@@ -14,10 +13,9 @@ module Liberic
       end
 
       class VerschluesselungsParameter < FFI::Struct
-        layout :version,     :uint, # Set version to 2
+        layout :version,     :uint, # Set version to 3
                :zertifikatHandle, :uint,
-               :pin,         :pointer,
-               :abrufCode,   :pointer
+               :pin,         :pointer
       end
 
       class ZertifikatParameter < FFI::Struct
@@ -33,9 +31,11 @@ module Liberic
       end
 
       BearbeitungFlag = enum(
-        :validiere, (1 << 1),
-        :sende,     (1 << 2),
-        :drucke,    (1 << 5),
+        :validiere,                       (1 << 1),
+        :sende,                           (1 << 2),
+        :drucke,                          (1 << 5),
+        :pruefe_hinweise,                 (1 << 7),
+        :validiere_ohne_freigabedatum,    (1 << 8),
         :sende_auth,  ('00100110'.to_i(2)) # triggers all three: valiediere, sende and drucke
       )
 

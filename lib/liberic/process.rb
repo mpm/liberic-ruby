@@ -37,7 +37,6 @@ module Liberic
     #   * +:filename+     (set a filename including path where to store the PDF file)
     #   * +:draft+        (set to +false+ to remove the the text "*** ENTWURF ***" on every page)
     #   * +:footer+       (set a string that will be printed on ever page footer)
-    #   * +:cover_page+   (set to +true+ to include a cover page)
     #   * +:duplex+       (set to +true+ to generate pages for duplex printing (alternating margin left and right)
     #
     # Other options
@@ -92,8 +91,7 @@ module Liberic
 
     def create_print_params(options)
       params = SDK::Types::DruckParameter.new
-      params[:version]     = 2
-      params[:ersteSeite]  = options[:cover_page] ? 1 : 0
+      params[:version]     = 4
       params[:duplexDruck] = options[:duplex] ? 1 : 0
       params[:vorschau]    = options.has_key?(:draft) ? (options[:draft] ? 1 : 0) : 1
       {pdfName: :filename,

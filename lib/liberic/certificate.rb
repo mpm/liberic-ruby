@@ -43,10 +43,9 @@ module Liberic
     def encryption_params
       params = SDK::Types::VerschluesselungsParameter.new
 
-      params[:version] = 2
+      params[:version] = 3
       params[:zertifikatHandle] = @handle
       params[:pin] = FFI::MemoryPointer.from_string(@pin).address
-      params[:abrufCode] = nil
 
       params
     end

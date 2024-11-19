@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0]
+
+Support for ERIC 40.
+
+### Deprecated
+
+These features were removed from the ERIC SDK.
+
+- `abrufCode` in `encryption_params`
+- `cover_page` (`ersteSeite`) in `print_params`
+
 ## [1.2.0]
 
 Add support to sign a submission with a POZ (Portalzertifikat)
