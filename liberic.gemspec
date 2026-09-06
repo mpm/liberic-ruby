@@ -34,5 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 2.5"
   spec.add_development_dependency "rake", "~> 13.1"
   spec.add_development_dependency "rspec", "~> 3.13"
-  spec.add_development_dependency "rubyzip", "~> 2.3"
+  spec.add_development_dependency "rubyzip", "~> 3.6"
 end
