@@ -60,8 +60,8 @@ module Liberic
       eric_action = ACTIONS[action] || (raise ExecutionError.new("Invalid action: #{action}. Valid actions are #{ACTIONS.keys.join(', ')}"))
       is_printing = %w[submit print_and_submit print_and_submit_auth].include?(action.to_s)
       print_params = create_print_params(options)
-      server_buffer = SDK::API.rueckgabepuffer_erzeugen
-      result = Helpers::Invocation.with_result_buffer(false) do |local_buffer|
+
+      result = Helpers::Invocation.with_local_and_server_result_buffers do |local_buffer, server_buffer|
         SDK::API.bearbeite_vorgang(@xml, @type,
           eric_action,
           (action == :submit ? nil : print_params),
@@ -70,13 +70,8 @@ module Liberic
           local_buffer,
           server_buffer)
       end
-      server_result = SDK::API.rueckgabepuffer_inhalt(server_buffer)
-      SDK::API.rueckgabepuffer_freigeben(server_buffer)
       print_params.pointer.free
-      {
-        result: result,
-        server_result: server_result
-      }
+      result
     end
 
     private
@@ -93,7 +88,7 @@ module Liberic
       params = SDK::Types::DruckParameter.new
       params[:version]     = 4
       params[:duplexDruck] = options[:duplex] ? 1 : 0
-      params[:vorschau]    = options.has_key?(:draft) ? (options[:draft] ? 1 : 0) : 1
+      params[:vorschau]    = options.has_key?(:draft) ? (options[:draft] ? 1 : 0) : 0
       {pdfName: :filename,
        fussText: :footer}.each do |eric_param, ruby_param|
         if options[ruby_param]
